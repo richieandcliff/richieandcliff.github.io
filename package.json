@@ -1,0 +1,14 @@
+{
+  "name": "wedding-website",
+  "version": "1.0.0",
+  "description": "Interactive minimalist website with modern parallax scrolling for my wedding",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "http-server -p 3000"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^0.12.3"
+  }
+}
