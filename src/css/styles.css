@@ -1,3 +1,6 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Roboto:wght@300;400&display=swap');
+
 /* Reset */
 html, body {
   margin: 0;
@@ -7,52 +10,121 @@ html, body {
   height: 100%;
 }
 
-/* 3D space setup */
+/* Reset container styles */
 .parallax-container {
   position: relative;
   height: 100%;
   perspective: 1px;
-  transform-style: preserve-3d;
   overflow-y: scroll;
   overflow-x: hidden;
-  background: var(--section-gradient);
-  transition: background 0.8s ease-in-out;
+  background: var(--current-color);
+  transition: background-color 1.2s ease-in-out;
 }
 
-/* Section gradients */
+/* Pastel section colors */
 #verse {
-  --section-gradient: linear-gradient(to bottom, #e7f8e1, #f8e1e7);
-  --flower-color: #9b59b6;
+  --color: #f8e1e7;  /* Soft Pink */
 }
 
 #welcome {
-  --section-gradient: linear-gradient(to bottom, #f8e1e7, #e1f7f8);
-  --flower-color: #ff6b6b;
-}
-
-#where {
-  --section-gradient: linear-gradient(to bottom, #e1f7f8, #f8f3e1);
-  --flower-color: #4ecdc4;
+  --color: #e1f7f8;  /* Light Blue */
 }
 
 #when {
-  --section-gradient: linear-gradient(to bottom, #f8f3e1, #e1f8e1);
-  --flower-color: #96c93d;
+  --color: #f8f3e1;  /* Cream */
+}
+
+#where {
+  --color: #e1f8e1;  /* Mint */
 }
 
 #reception {
-  --section-gradient: linear-gradient(to bottom, #e1f8e1, #f8e1f8);
-  --flower-color: #ff87ab;
+  --color: #f8e1f8;  /* Lavender */
 }
 
 #registry {
-  --section-gradient: linear-gradient(to bottom, #f8e1f8, #e1e1f8);
-  --flower-color: #845ec2;
+  --color: #e1e1f8;  /* Light Purple */
 }
 
 #rsvp {
-  --section-gradient: linear-gradient(to bottom, #e1e1f8, #f8e1e7);
-  --flower-color: #ff9a8b;
+  --color: #fff6cc;  /* Light Yellow */
+}
+
+/* Vibrant font colors */
+.section-content h1, .section-content h2, .section-content p {
+  color: var(--font-color);
+}
+
+#verse .section-content h1, #verse .section-content h2, #verse .section-content p {
+  --font-color: #FF6B6B;  /* Coral Red */
+}
+
+#welcome .section-content h1, #welcome .section-content h2, #welcome .section-content p {
+  --font-color: #4ECDC4;  /* Turquoise */
+}
+
+#when .section-content h1, #when .section-content h2, #when .section-content p {
+  --font-color: #45B7D1;  /* Ocean Blue */
+}
+
+/* Dates Container */
+.dates-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 10rem;
+}
+
+/* Date Card */
+.date-card {
+  flex: 1;
+  margin: 0 1rem;
+}
+
+.date-card h3 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+  color: var(--font-color);
+}
+
+.date-card p {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.2rem;
+  margin: 0.3rem 0;
+  color: var(--font-color);
+}
+
+/* Adjust section-content for left alignment */
+.section-content {
+  text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dates-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .date-card {
+    margin: 1rem 0;
+  }
+}
+
+#where .section-content h1, #where .section-content h2, #where .section-content p {
+  --font-color: #96C93D;  /* Lime Green */
+}
+
+#reception .section-content h1, #reception .section-content h2, #reception .section-content p {
+  --font-color: #845EC2;  /* Royal Purple */
+}
+
+#registry .section-content h1, #registry .section-content h2, #registry .section-content p {
+  --font-color: #FF9A8B;  /* Peach */
+}
+
+#rsvp .section-content h1, #rsvp .section-content h2, #rsvp .section-content p {
+  --font-color: #FFE66D;  /* Yellow */
 }
 
 /* Section layout */
@@ -71,40 +143,37 @@ html, body {
   padding: 50px;
   transform: translateZ(0);
   z-index: 2;
-  text-align: center;
+  text-align: left;  /* Align text to the left */
 }
 
-.section-content h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 5rem;
+.section-content h1, .section-content h2, .section-content h3, .section-content h4 {
+  font-family: 'Josefin Sans', sans-serif;  /* Use Josefin Sans for headings */
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: #333;
-  margin-bottom: 2rem;
-  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  line-height: 1;
   font-weight: 700;
 }
 
+.section-content h1 {
+  font-size: 9rem;
+  margin-bottom: 1rem;
+}
+
 .section-content h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 4.5rem;
+  font-size: 6.5rem;
+}
+
+
+.section-content p {
+  font-family: 'Josefin Sans', sans-serif;  /* Use Josefin Sans for headings */
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: #333;
   margin-bottom: 1.5rem;
   line-height: 1.2;
   font-weight: 700;
 }
 
-.section-content p {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #555;
-  max-width: 600px;
-  margin: 0 auto;
-  font-weight: 300;
-}
 
 /* Flower grid */
 .flower-grid {
@@ -122,13 +191,13 @@ html, body {
 }
 
 .flower {
-  width: 30px;
+  width: 50px;
   height: auto;
   opacity: 0.7;
   justify-self: center;
   align-self: center;
   animation: float 6s infinite ease-in-out;
-  animation-delay: 0.5s;
+  animation-delay: 0.8s;
   will-change: transform;
 }
 

@@ -1,22 +1,20 @@
-// Utility function for debouncing
-function debounce(fn, ms) {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => fn.apply(this, args), ms);
-  };
-}
+// State management
+const state = {
+  currentSection: null,
+  scrollPosition: 0,
+  observer: null,
+  animationFrame: null
+};
 
+// Generate flowers for each section
 function generateFlowers() {
   const sections = document.querySelectorAll('.parallax-section');
   
-  sections.forEach((section, sectionIndex) => {
+  sections.forEach((section, index) => {
     const flowerGrid = section.querySelector('.flower-grid');
     if (!flowerGrid) return;
     
     flowerGrid.innerHTML = '';
-    
-    // Fixed number of flowers
     const flowerCount = 35;
     
     for (let i = 0; i < flowerCount; i++) {
@@ -24,12 +22,10 @@ function generateFlowers() {
       flower.className = 'flower';
       flower.src = `images/f${Math.floor(Math.random() * 13) + 1}.png`;
       
-      // Only scale varies
       const scale = 0.5 + Math.random() * 0.5;
       flower.style.setProperty('--scale', scale);
       
-      // Section-specific color
-      const hue = (sectionIndex * 60) % 360;
+      const hue = (index * 60) % 360;
       flower.style.filter = `hue-rotate(${hue}deg)`;
       
       flowerGrid.appendChild(flower);
@@ -37,49 +33,97 @@ function generateFlowers() {
   });
 }
 
-// Handle parallax scrolling and gradient transitions
+// Update parallax and gradient effects
 function updateParallax() {
-  const sections = document.querySelectorAll('.parallax-section');
-  
-  // Find current section for gradient
-  const currentSection = Array.from(sections).find(section => {
-    const rect = section.getBoundingClientRect();
-    return rect.top <= window.innerHeight/2 && rect.bottom >= window.innerHeight/2;
-  }) || sections[0];
+  if (state.animationFrame) {
+    cancelAnimationFrame(state.animationFrame);
+  }
 
-  // Update container gradient
-  document.querySelector('.parallax-container').style.background = 
-    getComputedStyle(currentSection).getPropertyValue('--section-gradient');
-  
-  // Update parallax effects
-  sections.forEach(section => {
-    const rect = section.getBoundingClientRect();
-    const viewHeight = window.innerHeight;
+  state.animationFrame = requestAnimationFrame(() => {
+    const scrollPosition = window.pageYOffset;
+    const sections = document.querySelectorAll('.parallax-section');
     
-    if (rect.top < viewHeight && rect.bottom > 0) {
-      const scrolled = window.pageYOffset;
-      const rate = scrolled * 0.5;
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
       
-      const content = section.querySelector('.section-content');
-      const flowers = section.querySelectorAll('.flower');
-      
-      content.style.transform = `translateY(${rate * 0.2}px)`;
-      
-      flowers.forEach(flower => {
-        const speed = parseFloat(flower.dataset.speed);
-        flower.style.transform = `translate(-50%, -50%) scale(${flower.style.getPropertyValue('--scale') || 1}) translateY(${rate * speed}px)`;
-      });
-    }
+      if (inView) {
+        const rate = (scrollPosition - section.offsetTop) * 0.1;
+        const content = section.querySelector('.section-content');
+        const flowers = section.querySelectorAll('.flower');
+        
+        if (content) {
+          content.style.transform = `translateY(${rate * 0.2}px)`;
+        }
+        
+        flowers.forEach(flower => {
+          const speed = parseFloat(flower.dataset.speed || 0.3);
+          flower.style.transform = `translateY(${rate * speed}px)`;
+        });
+      }
+    });
   });
 }
 
+function handleIntersection(entries) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+      const section = entry.target;
+      const container = document.querySelector('.parallax-container');
+      const color = getComputedStyle(section).getPropertyValue('--color');
+      
+      if (color && state.currentSection !== section.id) {
+        state.currentSection = section.id;
+        container.style.setProperty('--current-color', color);
+      }
+    }
+  });
+}
 // Initialize everything
 function init() {
+  // Clean up existing observer
+  if (state.observer) {
+    state.observer.disconnect();
+  }
+
+  // Set up new intersection observer
+  state.observer = new IntersectionObserver(handleIntersection, {
+    threshold: [0, 0.5, 1],
+    rootMargin: '0px'
+  });
+
+  // Observe all sections
+  document.querySelectorAll('.parallax-section').forEach(section => {
+    state.observer.observe(section);
+  });
+
+  // Generate flowers
   generateFlowers();
-  updateParallax();
+
+  // Set initial gradient
+  const firstSection = document.querySelector('.parallax-section');
+  if (firstSection) {
+    const initialGradient = getComputedStyle(firstSection).getPropertyValue('--gradient');
+    document.querySelector('.parallax-container').style.setProperty('--current-gradient', initialGradient);
+  }
+
+  // Add scroll listener
+  window.addEventListener('scroll', updateParallax, { passive: true });
+  window.addEventListener('resize', generateFlowers);
 }
 
-// Event listeners
-window.addEventListener('load', init);
-window.addEventListener('resize', debounce(generateFlowers, 250));
-window.addEventListener('scroll', () => requestAnimationFrame(updateParallax));
+// Cleanup function
+function cleanup() {
+  if (state.observer) {
+    state.observer.disconnect();
+  }
+  if (state.animationFrame) {
+    cancelAnimationFrame(state.animationFrame);
+  }
+  window.removeEventListener('scroll', updateParallax);
+  window.removeEventListener('resize', generateFlowers);
+}
+
+// Start everything when DOM is ready
+document.addEventListener('DOMContentLoaded', init);
+window.addEventListener('unload', cleanup);
