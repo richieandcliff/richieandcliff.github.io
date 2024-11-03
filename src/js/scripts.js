@@ -1,59 +1,85 @@
-// Function to generate random flower grid
-function generateFlowerGrid() {
-  const sections = document.getElementsByClassName('parallax-section');
-  const totalFlowers = 56; // 7 columns × 8 rows
+// Utility function for debouncing
+function debounce(fn, ms) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), ms);
+  };
+}
+
+function generateFlowers() {
+  const sections = document.querySelectorAll('.parallax-section');
   
-  Array.from(sections).forEach(section => {
+  sections.forEach((section, sectionIndex) => {
     const flowerGrid = section.querySelector('.flower-grid');
     if (!flowerGrid) return;
     
-    // Clear existing flowers
     flowerGrid.innerHTML = '';
     
-    // Generate flowers
-    for (let i = 0; i < totalFlowers; i++) {
-      const randomFlowerNum = Math.floor(Math.random() * 13) + 1; // Random number 1-13
-      const randomSpeed = (Math.random() * 0.3 + 0.2).toFixed(2); // Random speed between 0.2 and 0.5
-      const randomDelay = (Math.random() * 12).toFixed(2); // Random animation delay
-      const randomScale = (Math.random() * 0.4 + 0.8).toFixed(2); // Random scale between 0.8 and 1.2
-      
+    // Fixed number of flowers
+    const flowerCount = 35;
+    
+    for (let i = 0; i < flowerCount; i++) {
       const flower = document.createElement('img');
-      flower.src = `images/f${randomFlowerNum}.png`;
       flower.className = 'flower';
-      flower.setAttribute('data-speed', randomSpeed);
-      flower.style.setProperty('--delay', randomDelay);
-      flower.style.transform = `scale(${randomScale})`;
-      flower.alt = `Decorative flower ${randomFlowerNum}`;
+      flower.src = `images/f${Math.floor(Math.random() * 13) + 1}.png`;
+      
+      // Only scale varies
+      const scale = 0.5 + Math.random() * 0.5;
+      flower.style.setProperty('--scale', scale);
+      
+      // Section-specific color
+      const hue = (sectionIndex * 60) % 360;
+      flower.style.filter = `hue-rotate(${hue}deg)`;
       
       flowerGrid.appendChild(flower);
     }
   });
 }
 
-// Run on page load
-document.addEventListener('DOMContentLoaded', generateFlowerGrid);
+// Handle parallax scrolling and gradient transitions
+function updateParallax() {
+  const sections = document.querySelectorAll('.parallax-section');
+  
+  // Find current section for gradient
+  const currentSection = Array.from(sections).find(section => {
+    const rect = section.getBoundingClientRect();
+    return rect.top <= window.innerHeight/2 && rect.bottom >= window.innerHeight/2;
+  }) || sections[0];
 
-// Optional: Regenerate on page refresh or when needed
-window.addEventListener('resize', generateFlowerGrid);
-
-window.addEventListener('scroll', function() {
-  var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-
-  var sections = document.getElementsByClassName('parallax-section');
-  for (var i = 0; i < sections.length; i++) {
-    var section = sections[i];
-    var offset = section.offsetTop;
-    var speed = section.dataset.speed;
-
-    var parallaxEffect = (offset - scrollPosition) * speed;
-    section.style.backgroundPositionY = parallaxEffect + 'px';
-
-    var flowers = section.getElementsByClassName('flower');
-    for (var j = 0; j < flowers.length; j++) {
-      var flower = flowers[j];
-      var flowerSpeed = flower.dataset.speed;
-      var flowerEffect = (scrollPosition - offset) * flowerSpeed;
-      flower.style.transform = 'translateY(' + flowerEffect + 'px)';
+  // Update container gradient
+  document.querySelector('.parallax-container').style.background = 
+    getComputedStyle(currentSection).getPropertyValue('--section-gradient');
+  
+  // Update parallax effects
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    const viewHeight = window.innerHeight;
+    
+    if (rect.top < viewHeight && rect.bottom > 0) {
+      const scrolled = window.pageYOffset;
+      const rate = scrolled * 0.5;
+      
+      const content = section.querySelector('.section-content');
+      const flowers = section.querySelectorAll('.flower');
+      
+      content.style.transform = `translateY(${rate * 0.2}px)`;
+      
+      flowers.forEach(flower => {
+        const speed = parseFloat(flower.dataset.speed);
+        flower.style.transform = `translate(-50%, -50%) scale(${flower.style.getPropertyValue('--scale') || 1}) translateY(${rate * speed}px)`;
+      });
     }
-  }
-});
+  });
+}
+
+// Initialize everything
+function init() {
+  generateFlowers();
+  updateParallax();
+}
+
+// Event listeners
+window.addEventListener('load', init);
+window.addEventListener('resize', debounce(generateFlowers, 250));
+window.addEventListener('scroll', () => requestAnimationFrame(updateParallax));

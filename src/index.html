@@ -3,136 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Clifford & Richie's Wedding Celebration">
   <title>Clifford & Richie Wedding</title>
   <link rel="stylesheet" href="css/styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="parallax-container">
+    <!-- Bible Verse Section -->
+    <div class="parallax-section" id="verse">
+      <div class="section-content">
+        <h2>Love Never Fails</h2>
+        <p class="bible-verse">
+          "And now these three remain: faith, hope and love.<br>
+          But the greatest of these is love."<br>
+          <span class="verse-reference">— 1 Corinthians 13:13</span>
+        </p>
+      </div>
+      <div class="flower-grid"></div>
+    </div>
+    <!-- Welcome Section -->
     <div class="parallax-section" id="welcome">
       <div class="section-content">
         <h1>Clifford & Richie</h1>
         <p>We are getting married</p>
-        <p>Some traditional romantic love story in fine text.</p>
       </div>
-  <div class="flower-grid">
-
-  </div>
+      <div class="flower-grid"></div>
     </div>
+
+    <!-- When Section -->
+    <div class="parallax-section" id="when">
+      <div class="section-content">
+        <h2>Save The Date</h2>
+        <p>December 2023</p>
+      </div>
+      <div class="flower-grid"></div>
+    </div>
+
+    <!-- Where Section -->
     <div class="parallax-section" id="where">
       <div class="section-content">
         <h2>Bengaluru</h2>
-        <p>Random address in fine text.</p>
+        <p>St. Patrick's Church<br>Brigade Road</p>
       </div>
-  <div class="flower-grid">
-
-  </div>
+      <div class="flower-grid"></div>
     </div>
-    <div class="parallax-section" id="when">
-      <div class="section-content">
-        <h2>DATE</h2>
-        <p>Day in fine text.</p>
-      </div>
-  <div class="flower-grid">
 
-  </div>
-    </div>
+    <!-- Reception Section -->
     <div class="parallax-section" id="reception">
       <div class="section-content">
         <h2>Reception</h2>
-        <p>Venue details under reception.</p>
+        <p>Join us for dinner and dancing</p>
       </div>
-      <img src="images/f4.png" class="flower" data-speed="0.3" alt="Flower">
-      <!-- Add more flower images as needed -->
+      <div class="flower-grid"></div>
     </div>
+
+    <!-- Registry Section -->
     <div class="parallax-section" id="registry">
       <div class="section-content">
         <h2>Registry</h2>
-        <p>Great modern ideas to embed our John Lewis registry.</p>
+        <p>Your presence is our present.<br>However, if you wish to give a gift, we are registered at John Lewis.</p>
       </div>
-  <div class="flower-grid">
-
-  </div>
+      <div class="flower-grid"></div>
     </div>
+
+    <!-- RSVP Section -->
     <div class="parallax-section" id="rsvp">
       <div class="section-content">
         <h2>RSVP</h2>
-        <form>
-          <input type="text" name="name" placeholder="Name">
-          <input type="email" name="email" placeholder="Email">
-          <select name="attendance">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-            <option value="maybe">Maybe</option>
+        <form id="rsvp-form">
+          <input type="text" name="name" placeholder="Name" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <select name="attendance" required>
+            <option value="">Will you be attending?</option>
+            <option value="yes">Joyfully Accept</option>
+            <option value="no">Regretfully Decline</option>
           </select>
-          <button type="submit">Submit</button>
+          <button type="submit">Send</button>
         </form>
       </div>
-  <div class="flower-grid">
-
-  </div>
-    </div>
-    <div class="parallax-section" id="final">
-      <div class="section-content">
-        <h2>Greatest of these is love.</h2>
-        <p>Bible verse.</p>
-      </div>
-  <div class="flower-grid">
-
-  </div>
+      <div class="flower-grid"></div>
     </div>
   </div>
-  <script src="js/scripts.js"></script>
-</body>
-</html>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Website</title>
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-  <div class="parallax-container">
-    <div class="parallax-section" id="reception">
-      <div class="section-content">
-        <h2>Reception</h2>
-        <p>Venue details under reception.</p>
-      </div>
-  <div class="flower-grid">
-
-  </div>
-    </div>
-    <div class="parallax-section" id="registry">
-      <div class="section-content">
-        <h2>Registry</h2>
-        <p>Great modern ideas to embed our John Lewis registry.</p>
-      </div>
-  <div class="flower-grid">
-
-  </div>
-    </div>
-    <div class="parallax-section" id="where">
-      <div class="section-content">
-        <h2>Bengaluru</h2>
-        <p>Random address in fine text.</p>
-      </div>
-  <div class="flower-grid">
-
-  </div>
-    </div>
-    <div class="parallax-section" id="when">
-      <div class="section-content">
-        <h2>DATE</h2>
-        <p>Day in fine text.</p>
-      </div>
-  <div class="flower-grid">
-
-  </div>
-    </div>
-  </div>
   <script src="js/scripts.js"></script>
 </body>
 </html>

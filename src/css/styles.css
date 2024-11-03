@@ -1,74 +1,112 @@
-/* Reset default styles - KEEP THIS PART */
+/* Reset */
 html, body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  color: #333;
   overflow-x: hidden;
+  height: 100%;
 }
 
-/* Parallax container - KEEP THIS PART */
+/* 3D space setup */
 .parallax-container {
-  background: linear-gradient(
-    to bottom,
-    #f8e1e7, /* Pastel pink */
-    #e1f7f8, /* Pastel blue */
-    #f8f3e1, /* Pastel yellow */
-    #e1f8e1, /* Pastel green */
-    #f8e1f8, /* Pastel purple */
-    #e1e1f8, /* Pastel lavender */
-    #f8e1e7  /* Pastel pink */
-  );
+  position: relative;
+  height: 100%;
+  perspective: 1px;
+  transform-style: preserve-3d;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: var(--section-gradient);
+  transition: background 0.8s ease-in-out;
 }
 
-/* Parallax section - UPDATE THIS PART */
+/* Section gradients */
+#verse {
+  --section-gradient: linear-gradient(to bottom, #e7f8e1, #f8e1e7);
+  --flower-color: #9b59b6;
+}
+
+#welcome {
+  --section-gradient: linear-gradient(to bottom, #f8e1e7, #e1f7f8);
+  --flower-color: #ff6b6b;
+}
+
+#where {
+  --section-gradient: linear-gradient(to bottom, #e1f7f8, #f8f3e1);
+  --flower-color: #4ecdc4;
+}
+
+#when {
+  --section-gradient: linear-gradient(to bottom, #f8f3e1, #e1f8e1);
+  --flower-color: #96c93d;
+}
+
+#reception {
+  --section-gradient: linear-gradient(to bottom, #e1f8e1, #f8e1f8);
+  --flower-color: #ff87ab;
+}
+
+#registry {
+  --section-gradient: linear-gradient(to bottom, #f8e1f8, #e1e1f8);
+  --flower-color: #845ec2;
+}
+
+#rsvp {
+  --section-gradient: linear-gradient(to bottom, #e1e1f8, #f8e1e7);
+  --flower-color: #ff9a8b;
+}
+
+/* Section layout */
 .parallax-section {
   position: relative;
   height: 100vh;
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  transform-style: preserve-3d;
   display: flex;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  color: #fff;
-  transform: translateZ(0);
-  overflow: hidden; /* Added to contain flowers */
+  justify-content: center;
 }
 
-/* Section content - UPDATE THIS PART */
+/* Content styling */
 .section-content {
-  padding: 50px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
   position: relative;
-  z-index: 2; /* Ensures content stays above flowers */
+  padding: 50px;
+  transform: translateZ(0);
+  z-index: 2;
+  text-align: center;
 }
 
-/* KEEP THESE HEADING AND FORM STYLES */
-.section-content h1, .section-content h2 {
+.section-content h1 {
   font-family: 'Playfair Display', serif;
-  margin-bottom: 20px;
+  font-size: 5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #333;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.section-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #333;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  font-weight: 700;
 }
 
 .section-content p {
-  font-size: 18px;
-  margin-bottom: 40px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 300;
 }
 
-.section-content form {
-  display: flex;
-  flex-direction: column;
-}
-
-.section-content input, .section-content select, .section-content button {
-  margin: 10px 0;
-  padding: 10px;
-  font-size: 16px;
-}
-
+/* Flower grid */
 .flower-grid {
   position: absolute;
   top: 0;
@@ -78,43 +116,53 @@ html, body {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(8, 1fr);
-  gap: 0;
-  pointer-events: none;
+  transform: translateZ(-1px) scale(2);
   z-index: 1;
-  padding: 20px;  /* Add some padding to keep flowers from edges */
+  pointer-events: none;
 }
 
 .flower {
-  position: relative;
   width: 30px;
   height: auto;
-  opacity: 0.6;
-  transition: transform 0.8s ease-out;
+  opacity: 0.7;
   justify-self: center;
   align-self: center;
-  transform-origin: center;
-  filter: brightness(0.95);
-  /*Subtlevariationinappearance*/:;
-  -webkit-transition: transform 0.8s ease-out;
-  -moz-transition: transform 0.8s ease-out;
-  -ms-transition: transform 0.8s ease-out;
-  -o-transition: transform 0.8s ease-out;
+  animation: float 6s infinite ease-in-out;
+  animation-delay: 0.5s;
+  will-change: transform;
 }
 
-@keyframes floatAnimation {
-  0% { 
-    transform: rotate(0deg) translateY(0) scale(var(--scale, 1)); 
+/* Form styling */
+.section-content form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.section-content input,
+.section-content select,
+.section-content button {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+/* Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(var(--scale, 1));
   }
-  50% { 
-    transform: rotate(5deg) translateY(-10px) scale(var(--scale, 1)); 
-  }
-  100% { 
-    transform: rotate(0deg) translateY(0) scale(var(--scale, 1)); 
+  50% {
+    transform: translateY(-20px) scale(var(--scale, 1));
   }
 }
 
-.flower {
-  animation: floatAnimation 8s infinite ease-in-out;
-  animation-delay: calc(var(--delay, 0) * 5s);
-  -webkit-animation: floatAnimation 8s infinite ease-in-out;
+/* Responsive */
+@media (max-width: 768px) {
+  .section-content h1 { font-size: 3.5rem; }
+  .section-content h2 { font-size: 3rem; }
+  .section-content p { font-size: 1rem; }
 }
