@@ -35,6 +35,35 @@ function generateFlowers() {
 
 
 // src/js/scripts.js
+function sendEmail(e) {
+  e.preventDefault();
+  
+  const form = e.target;
+  const btn = form.querySelector('button');
+  btn.disabled = true;
+  
+  // Create template parameters
+  const templateParams = {
+    user_name: form.name.value,
+    user_email: form.email.value,
+    attendance: form.attendance.value
+  };
+  
+  emailjs.send('wedding_rsvp_cr', 'rsvp_template', templateParams)
+    .then(() => {
+      alert('RSVP sent successfully!');
+      form.reset();
+    })
+    .catch((error) => {
+      console.error('RSVP failed:', error);
+      alert('Failed to send RSVP. Please try again.');
+    })
+    .finally(() => {
+      btn.disabled = false;
+    });
+    
+  return false;
+}
 
 // Update parallax and gradient effects
 function updateParallax() {
@@ -141,45 +170,7 @@ function handleIntersection(entries) {
   });
 }
 
-/*
-function generateShapes() {
-  const sections = document.querySelectorAll('.parallax-section');
 
-  sections.forEach((section) => {
-    const shapeContainer = section.querySelector('.shape-container');
-    if (!shapeContainer) return;
-
-    shapeContainer.innerHTML = '';
-
-    const shapes = []; // Define shapes for each section
-
-    // Example shapes for each section
-    if (section.id === 'welcome') {
-      shapes.push({ size: 400, color: '#FF6B6B', top: '30%', left: '20%', speed: 0.3 });
-      shapes.push({ size: 250, color: '#4ECDC4', top: '70%', left: '60%', speed: 0.3 });
-    }
-
-    // Add shapes for other sections
-    if (section.id === 'when') {
-      shapes.push({ size: 350, color: '#45B7D1', top: '40%', left: '25%', speed: 0.3 });
-      shapes.push({ size: 200, color: '#96C93D', top: '65%', left: '55%', speed: 0.3 });
-    }
-
-    shapes.forEach((shapeData) => {
-      const shape = document.createElement('div');
-      shape.className = 'shape';
-      shape.style.width = `${shapeData.size}px`;
-      shape.style.height = `${shapeData.size}px`;
-      shape.style.backgroundColor = shapeData.color;
-      shape.style.top = shapeData.top;
-      shape.style.left = shapeData.left;
-      shape.dataset.speed = shapeData.speed;
-
-      shapeContainer.appendChild(shape);
-    });
-  });
-}
-  */
 // Initialize everything
 function init() {
   // Clean up existing observer
