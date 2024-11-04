@@ -71,17 +71,104 @@ html, body {
   will-change: transform;
 }
 
+
+@media (max-width: 768px) {
+  .section-content h2 {
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-content p {
+    font-size: 1.4rem;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .section-content h2 {
+    font-size: 2.4rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-content p {
+    font-size: 1.2rem;
+  }
+}
+
 /* Vibrant font colors */
 .section-content h1, .section-content h2, .section-content p {
   color: var(--font-color);
 }
 
+#verse .section-content h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 6.5rem; /* Default font size */
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--font-color);
+}
+
+#verse .section-content p {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.8rem; /* Default font size */
+  line-height: 1.5;
+  color: var(--font-color);
+  text-align: center;
+}
+
+
 #verse .section-content h1, #verse .section-content h2, #verse .section-content p {
   --font-color: #FF6B6B;  /* Coral Red */
 }
 
+@media (max-width: 768px) {
+  #verse .section-content h2 {
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  #verse .section-content p {
+    font-size: 1.4rem;
+  }
+}
+
+
+@media (max-width: 480px) {
+  #verse .section-content h2 {
+    font-size: 2.4rem;
+    margin-bottom: 0.6rem;
+  }
+
+  #verse .section-content p {
+    font-size: 1.2rem;
+  }
+}
+
 #welcome .section-content h1, #welcome .section-content h2, #welcome .section-content p {
   --font-color: #000000;  /* Turquoise */
+}
+
+@media (max-width: 768px) {
+  #welcome .section-content h1 {
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  #welcome .section-content p {
+    font-size: 1.4rem;
+  }
+}
+
+
+@media (max-width: 480px) {
+  #welcome .section-content h1 {
+    font-size: 3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  #welcome .section-content p {
+    font-size: 1.2rem;
+  }
 }
 
 #when .section-content h1, #when .section-content h2, #when .section-content p {
@@ -96,10 +183,11 @@ html, body {
   margin-top: 10rem;
 }
 
-/* Date Card */
+/* Each Date Card */
 .date-card {
   flex: 1;
   margin: 0 1rem;
+  text-align: left;
 }
 
 .date-card h3 {
@@ -121,14 +209,50 @@ html, body {
   text-align: left;
 }
 
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .dates-container {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
   .date-card {
     margin: 1rem 0;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .dates-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .date-card {
+    margin: 1rem 0;
+    width: 100%; /* Ensure the date cards span the full width */
+  }
+  .date-card h3 {
+    font-size: 1.6rem; /* Adjust font size for smaller screens */
+  }
+  .date-card h4,
+  .date-card h5 {
+    font-size: 1.2rem; /* Adjust font size */
+  }
+  .date-card p {
+    font-size: 1rem; /* Adjust font size */
+  }
+}
+
+
+/* Ensure sections have enough spacing to prevent overlap */
+.parallax-section {
+  min-height: auto; /* Allow sections to adjust height based on content */
+  padding: 4rem 0; /* Increase padding to ensure enough space between sections */
+}
+
+@media (max-width: 480px) {
+  .parallax-section {
+    padding: 3rem 0; /* Adjust padding for smaller screens */
   }
 }
 
@@ -136,66 +260,66 @@ html, body {
   --font-color: #96C93D;  /* Lime Green */
 }
 
-/* Update your CSS with these styles */
-.parallax-section {
-  min-height: 100vh;
-  position: relative;
-  padding: 4rem 0;
-}
 
+
+/* Styles for Venue Section */
+
+/* Container for Venues */
 .venues-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Stack rows vertically */
   gap: 2rem;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* Each Row of Venues */
 .venue-row {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 2rem;
-  width: 100%;
 }
 
+/* Venue Card */
 .venue-card {
-  flex: 0 1 calc(50% - 0.2rem);
+  flex: 1;
   display: flex;
   align-items: flex-start;
-  gap: 0.1rem;
-  /*Reducedfrom1.5remtobringQRcodecloser*/padding: 1.0rem;
+  gap: 1rem;
+  padding: 1.0rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -o-border-radius: 8px;
 }
 
-.venue-info {
-  flex: 1;
-}
-
-.venue-card h3 {
+/* Venue Info */
+.venue-info h3 {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 1.8rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   color: var(--font-color);
 }
 
-.venue-card p {
-  font-family: 'Josefin Sans', sans-serif;  /* Use Josefin Sans for headings */
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  margin-bottom: 0.2rem; /* Reduced spacing */
-  line-height: 1.2;
-  font-weight: 700;
+.venue-info p {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.2rem;
+  margin: 0.2rem 0;
+  color: var(--font-color);
 }
 
+.map-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--font-color);
+  text-decoration: none;
+  font-size: 1rem;
+  border-bottom: 1px solid currentColor;
+}
+
+/* QR Code Image */
 .qr-code {
-  width: 90px;  /* Reduced size */
-  height: 90px; /* Reduced size */
+  width: 90px;
+  height: 90px;
   flex-shrink: 0;
 }
 
@@ -205,26 +329,60 @@ html, body {
   object-fit: contain;
 }
 
-
-.map-link {
-  display: inline-block;
-  margin-top: 1rem;
-  color: var(--font-color);
-  text-decoration: none;
-  font-size: 0.9rem;
-  border-bottom: 1px solid currentColor;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .venue-row {
     flex-direction: column;
   }
-  
+
   .venue-card {
-    flex: 0 0 100%;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center;
+    text-align: center;
+  }
+
+  .venue-card:not(:last-child) {
+    margin-bottom: 2rem; /* Add spacing between cards */
+  }
+
+  .qr-code {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1rem;
+  }
+
+  .venue-info h3 {
+    font-size: 1.6rem;
+  }
+
+  .venue-info p {
+    font-size: 1rem;
+  }
+
+  .map-link {
+    font-size: 0.9rem;
   }
 }
+
+@media (max-width: 480px) {
+  .qr-code {
+    width: 60px;
+    height: 60px;
+  }
+
+  .venue-info h3 {
+    font-size: 1.4rem;
+  }
+
+  .venue-info p {
+    font-size: 0.9rem;
+  }
+
+  .map-link {
+    font-size: 0.8rem;
+  }
+}
+
 #reception .section-content h1, #reception .section-content h2, #reception .section-content p {
   --font-color: #845EC2;  /* Royal Purple */
 }
@@ -293,14 +451,20 @@ html, body {
   --font-color: #FFE66D;  /* Yellow */
 }
 
-/* Section layout */
 .parallax-section {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 4rem 2rem; /* Added horizontal padding */
   transform-style: preserve-3d;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .parallax-section {
+    padding: 1.5rem 0; /* Reduce padding on smaller screens */
+  }
 }
 
 /* Content styling */
@@ -400,4 +564,67 @@ html, body {
   .section-content h1 { font-size: 3.5rem; }
   .section-content h2 { font-size: 3rem; }
   .section-content p { font-size: 1rem; }
+}
+
+/* Additional adjustments for smaller screens */
+@media (max-width: 480px) {
+  .parallax-section {
+    padding: 5rem 1rem;
+  }
+
+  .section-content h2 {
+    font-size: 2.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .dates-container {
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+  }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .parallax-section {
+    min-height: auto; /* Allow content to determine height */
+    padding: 6rem 1rem; /* Increase vertical padding, adjust horizontal */
+    margin-bottom: 2rem; /* Add space between sections */
+  }
+
+  /* Adjust date cards spacing */
+  .dates-container {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem; /* Reduced from 10rem */
+    margin-bottom: 4rem; /* Add bottom margin */
+  }
+
+  .date-card {
+    width: 100%;
+    margin: 1rem 0;
+    text-align: center;
+  }
+
+  /* Adjust venue section spacing */
+  #where {
+    padding-top: 2rem; /* Add more space at the top */
+    text-align: center;
+  }
+
+  .venues-container {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  /* Reduce heading sizes for better fit */
+  .section-content h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .venue-card {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+  }
 }
