@@ -21,6 +21,19 @@ html, body {
   transition: background-color 1.2s ease-in-out;
 }
 
+/* Shape container */
+.shape-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Behind the content but above the flowers */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Add similar styles for other sections */
 /* Pastel section colors */
 #verse {
   --color: #f8e1e7;  /* Soft Pink */
@@ -48,6 +61,14 @@ html, body {
 
 #rsvp {
   --color: #fff6cc;  /* Light Yellow */
+}
+
+
+/* Shapes */
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
 }
 
 /* Vibrant font colors */
@@ -115,6 +136,88 @@ html, body {
   --font-color: #96C93D;  /* Lime Green */
 }
 
+/* Update your CSS with these styles */
+.parallax-section {
+  min-height: 100vh;
+  position: relative;
+  padding: 4rem 0;
+}
+
+.venues-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.venue-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
+  width: 100%;
+}
+
+.venue-card {
+  flex: 0 0 calc(50% - 1rem);
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.venue-info {
+  flex: 1;
+}
+
+.venue-card h3 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--font-color);
+}
+
+.venue-card p {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.1rem;
+  margin: 0.3rem 0;
+  color: var(--font-color);
+}
+
+.qr-code {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.qr-code img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.map-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--font-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-bottom: 1px solid currentColor;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .venue-row {
+    flex-direction: column;
+  }
+  
+  .venue-card {
+    flex: 0 0 100%;
+  }
+}
 #reception .section-content h1, #reception .section-content h2, #reception .section-content p {
   --font-color: #845EC2;  /* Royal Purple */
 }
